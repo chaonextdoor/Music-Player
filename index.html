@@ -1,0 +1,124 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8" />
+	<title>Music Player With 3D Animation</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/cssreset.css">
+</head>
+<body>
+	<ul id="poster">
+		<li>
+			<img src="image/California Gurls.jpg" alt="California Gurls" class="cover">
+			<div class="songinfo">
+				<h1>California Gurls</h1>
+				<p>Electropop song by American singer-songwriter <span>Katy Perry</span>, peaked at number one on the Billboard Hot 100 for six consecutive weeks.</p>
+				<a href="#">Listen</a>
+			</div>
+		</li>
+		<li>
+			<img src="image/Cooler Than Me.jpg" alt="Cooler Than Me" class="cover">
+			<div class="songinfo">
+				<h1>Cooler Than Me</h1>
+				<p>Debut single by American recording artist <span>Mike Posner</span>, peaked at number 6 on the Billboard Hot 100.</p>
+				<a href="#">Listen</a>
+			</div>
+		</li>
+		<li>
+			<img src="image/Dynamite.jpg" alt="Dynamite" class="cover">
+			<div class="songinfo">
+				<h1>Dynamite</h1>
+				<p>Fourth single from English recording artist <span>Taio Cruz</span>'s second album Rokstarr, reached number two on the US Billboard Hot 100.</p>
+				<a href="#">Listen</a>
+			</div>
+		</li>
+		<li>
+			<img src="image/Love The Way You Lie.jpg" alt="Love The Way You Lie" class="cover">
+			<div class="songinfo">
+				<h1>Love The Way You Lie</h1>
+				<p>Second single by American rapper <span>Eminem</span> for his 2010 studio album Recovery, held number one on the US Billboard Hot 100 for seven weeks.</p>
+				<a href="#">Listen</a>
+			</div>
+		</li>
+		<li>
+			<img src="image/Magic.jpg" alt="Magic" class="cover">
+			<div class="songinfo">
+				<h1>Magic</h1>
+				<p>Third single from <span>B.o.B</span>'s debut studio album, B.o.B Presents The Adventures of Bobby Ray, reached as high as number 10 the Billboard Hot 100.</p>
+				<a href="#">Listen</a>
+			</div>
+		</li>
+		<li><img src="image/Mine.jpg" alt="Mine" class="cover">
+			<div class="songinfo">
+				<h1>Mine</h1>
+				<p>Lead single from American singer-songwriter <span>TaylorSwift</span>'s third studio album Speak Now, entered the Billboard Hot 100 at number three.</p>
+				<a href="#">Listen</a>
+			</div>
+		</li>
+		<li>
+			<img src="image/Ridin' Solo.jpg" alt="Ridin\' Solo" class="cover">
+			<div class="songinfo">
+				<h1>Ridin' Solo</h1>
+				<p>Third single from <span>Jason Derülo</span>'s debut self-titled album Jason Derülo, third top ten hit on the US Billboard Hot 100.</p>
+				<a href="#">Listen</a>
+			</div>
+		</li>
+		<li>
+			<img src="image/Teenage Dream.jpg" alt="Teenage Dream" class="cover">
+			<div class="songinfo">
+				<h1>Teenage Dream</h1>
+				<p>Second single from American singer-songwriter <span>Katy Perry</span>'s third studio album of the same name, her third number-one single on the Billboard Hot 100.</p>
+				<a href="#">Listen</a>
+			</div>
+		</li>
+	</ul>
+	<div id="musicplayer">
+		<aside>
+			<div id="title"></div>
+			<div id="singer"></div>
+			<audio>
+			</audio>
+			<a href="#"></a>
+		</aside>
+		<section>
+			<img src="image/record.png" alt="record" id="record">
+		</section>
+	</div>
+
+<script type="text/javascript" src="js/jquery 1.7.2.min.js"></script>
+
+<script>
+(function($){
+	$("#musicplayer").hide();
+	$("li a").on("click", function(){
+		var $this = $(this);
+		$this.closest("ul").siblings("#musicplayer").find("audio").attr({"src": "music/" + $this.siblings('h1').text() + ".ogg", "controls": "controls"});
+		$this.closest("ul").siblings("#musicplayer").find("a").text("Go back to list");
+		$this.closest("ul").siblings("#musicplayer").find('#title').text($this.siblings('h1').text());
+		$this.closest("ul").siblings("#musicplayer").find("#singer").html("<span>By </span>"+$this.siblings('p').find('span').text());
+		$(this).closest('ul').children().fadeOut(1000, function(){
+			$('body').css("background","url('image/bg.jpg') #232524 repeat-x");
+			$(this).closest('ul').siblings('#musicplayer').children("section").append($this.closest('div').siblings('img').clone());
+			$(this).closest('ul').siblings('#musicplayer').fadeIn(1000, function(){
+							 	                       console.log('musicplayer');
+							 	                       $(this).find("#record").css("left","110px").addClass('rotating');
+							                         });
+		});
+    });
+    $("aside a").on("click", function(){
+    	var $this = $(this); 
+    	$("#musicplayer").fadeOut(1000, function(){
+    		$("body").css("background","#232524");
+    		$("ul").children().fadeIn(1000);
+    		$(this).find("audio").removeAttr("src", "controls");
+    		$(this).find('audio')[0].pause();
+    		$("#record").removeClass("rotating");
+    		$(this).find("#title").text("");
+    		$(this).find("#singer").html("");
+    		$(this).find("#record").css("left", "0px").removeClass("rotating");
+    	});
+    });
+})(jQuery);
+</script>
+
+</body>
+</html>
